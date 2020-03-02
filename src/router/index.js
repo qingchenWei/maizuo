@@ -1,28 +1,60 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import VueRouter from 'vue-router' // 路由核心模块
 
-Vue.use(VueRouter)
-
+Vue.use(VueRouter) // 注册路由插件
+// 路由映射表
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/film',
+    component: () => import('@/views/Film'),
+    // 重定向
+    redirect: '/film/nowplaying',
+    children: [
+      {
+        path: '/film/nowplaying',
+        component: () => import('@/views/Nowplaying')
+      },
+      {
+        path: '/film/comingsoon',
+        component: () => import('@/views/Comingsoon')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/cinema',
+    component: () => import('@/views/Cinema')
+  },
+  {
+    path: '/cinema/search',
+    component: () => import('@/views/Search')
+  },
+  {
+    path: '/center',
+    component: () => import('@/views/Center')
+  },
+  {
+    path: '/film/:filmId',
+    component: () => import('@/views/Detail')
+  },
+  {
+    path: '/city',
+    component: () => import('@/views/City')
+  },
+  // 重定向
+  {
+    path: '/',
+    redirect: '/film'
+  },
+  // 访问路径找不到
+  {
+    path: '*',
+    component: () => import('@/views/ErrorComponent')
   }
+
 ]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes
 })
 

@@ -5,6 +5,7 @@
             <van-index-anchor :index="data.index">{{data.index}}</van-index-anchor>
             <van-cell :title="item.name" v-for="(item,index) in data.list" :key="index" @click="handleClick(item)" />
         </div>
+        <div>222222222222222</div>
     </van-index-bar>
     </div>
 </template>
